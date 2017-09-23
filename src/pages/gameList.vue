@@ -69,9 +69,14 @@
       getData () {
         this.$http({
           method: 'get',
-          url: 'http://www.baidu.com'
+          url: '/match/findmatch'
+//          url: 'https://cnodejs.org/api/v1/topics'
         }).then((res) => {
-          console.log(res)
+          console.log(0, res.status)
+          if (res.status === 200) {
+            console.log(11)
+            this.dealData(res.data && res.data.data)
+          }
         }).catch((e) => {
           console.warn(e)
         })
@@ -85,6 +90,11 @@
       checkPassword (id) {
         console.log(id)
         this.show = true
+      },
+      dealData (data) {
+        if (!data) return
+//        console.log(1111)
+        this.lists = data
       }
     }
 
