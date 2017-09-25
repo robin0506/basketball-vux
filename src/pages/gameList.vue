@@ -69,7 +69,7 @@
       getData () {
         this.$http({
           method: 'get',
-          url: '/match/findmatch'
+          url: '/match/findmatch.do'
 //          url: 'https://cnodejs.org/api/v1/topics'
         }).then((res) => {
           console.log(0, res.status)
