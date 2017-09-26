@@ -2,11 +2,11 @@
   <div>
   <ul class="game-list">
     <li class="game-item" v-for="(item,index) in lists">
-        <img class="portrait" :src=item.portrait alt="头像" height="100" width="100">
+        <img class="portrait" :src=item.matchUserUrl alt="头像" height="100" width="100">
         <div class="info">
           <p class="room-name">{{item.roomName}}</p>
           <p class="status">{{item.status}}</p>
-          <x-button type="primary" @click.native = "checkPassword(item.id)">join</x-button>
+          <x-button type="primary" @click.native = "checkPassword(item.matchid,item.matchpasswd)">join</x-button>
         </div>
     </li>
   </ul>
@@ -43,25 +43,65 @@
       return {
         show: false,
         msg: 'test',
+        game: {
+          password: '',
+          matchid: ''
+        },
         lists: [
-          {
-            id: 1,
-            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
-            roomName: '房间1',
-            status: '进行中'
-          },
-          {
-            id: 2,
-            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
-            roomName: '房间2',
-            status: '进行中'
-          },
-          {
-            id: 3,
-            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
-            roomName: '房间3',
-            status: '进行中'
-          }
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 1,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间1',
+//            status: '进行中'
+//          },
+//          {
+//            id: 2,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间2',
+//            status: '进行中'
+//          },
+//          {
+//            id: 3,
+//            portrait: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3929251423,454148251&fm=27&gp=0.jpg',
+//            roomName: '房间3',
+//            status: '进行中'
+//          }
         ]
       }
     },
@@ -84,12 +124,21 @@
       onCancel () {
         console.log('cancel')
       },
-      onConfirm () {
+      onConfirm (password) {
         console.log('confirm')
+        if (password === this.game.password) {
+//          alert('正确密码')
+//          debugger
+          this.$router.push({path: '/beforeGame/' + this.game.matchid})
+        } else {
+          alert('密码错误')
+        }
       },
-      checkPassword (id) {
-        console.log(id)
+      checkPassword (matchid, password) {
+        console.log(matchid)
         this.show = true
+        this.game.password = password
+        this.game.matchid = matchid
       },
       dealData (data) {
         if (!data) return

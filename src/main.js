@@ -7,6 +7,7 @@ import App from './App'
 import Home from './pages/HelloFromVux'
 import gameList from './pages/gameList'
 import beforeGame from './pages/beforeGame'
+import createGame from './pages/createGame'
 import { AjaxPlugin } from 'vux'
 
 Vue.use(VueRouter)
@@ -22,12 +23,16 @@ const routes = [
   }, {
     path: '/beforeGame/:id',
     component: beforeGame
+  }, {
+    path: '/createGame',
+    component: createGame
   }
 
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 FastClick.attach(document.body)
